@@ -118,13 +118,81 @@ public sealed class RecipeManagerTests
         RecipeManager manager = new RecipeManager(recipes);
 
         // Act
-        string peekResult = manager.PeekNextInstruction();
+        string peek = manager.PeekNextInstruction();
 
         // Assert
-        Assert.Null(peekResult);
+        Assert.Null(peek);
 
     }
 
+
+
+    [Fact]
+    public void ClearShoppingList_testing()
+    {
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+        Recipe recipt2 =  new Recipe{ Id = 11, Title = "Recipe b"};
+        Recipe recipt3 =  new Recipe{ Id = 12, Title = "Recipe c"};
+        Recipe recipt4 =  new Recipe{ Id = 13, Title = "Recipe d"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+        recipes.Add(recipt2);
+        recipes.Add(recipt3);
+        recipes.Add(recipt4);
+
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        manager.AddIngredientsToShoppingList(1);
+
+        // clear shoppinglist
+        manager.ClearShoppingList();
+
+        // Assert
+        Assert.Equal(0, manager.ShoppingItemCount);
+    }
+
+
+    [Fact]
+    public void FindRecipe_Notexist_ID_ReturnsNull()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // 999 should not exist
+        Recipe notExistresult = manager.FindRecipe(999);
+
+        // Assert
+        Assert.Null(notExistresult);
+    }
+
+
+    [Fact]
+    public void FindRecipe_Notexist_ID_ReturnzeroCount()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // 999 should not exist
+        int notexistResult = manager.AddIngredientsToShoppingList(999);
+
+        // Assert
+        Assert.Equal(0, notexistResult);
+        Assert.Equal(0, manager.ShoppingItemCount);
+    }
 
 
     private static RecipeManager CreateManager()
