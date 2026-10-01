@@ -368,9 +368,19 @@ public sealed class RecipeManager : IRecipeManager
         return instructionQueue.Peek();
     }
 
-    
-    public string? CompleteNextInstruction() =>
-        throw new NotImplementedException("Part A: implement CompleteNextInstruction.");
+
+    public string? CompleteNextInstruction()
+    {
+        // same as above
+        // when the queue is empty, just return null
+        if (instructionQueue.Count == 0)
+        {
+            return null;
+        }
+
+        return instructionQueue.Dequeue();
+    }
+
 
     public IReadOnlyList<Recipe> SearchByTitle(string searchText) =>
         throw new NotImplementedException("Part B: implement SearchByTitle.");
