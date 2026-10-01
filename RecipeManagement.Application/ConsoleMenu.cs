@@ -8,7 +8,7 @@ public static class ConsoleMenu
 {
     public static void PrintMenu(IRecipeManager manager)
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("RECIPE MANAGEMENT SYSTEM");
         Console.WriteLine($"Recipes: {manager.RecipeCount} | " +
             $"Shopping items: {manager.ShoppingItemCount} | " +

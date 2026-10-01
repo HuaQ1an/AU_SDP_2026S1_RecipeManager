@@ -56,7 +56,7 @@ public sealed class RecipeManager : IRecipeManager
     public int ShoppingItemCount => allShoppingList.Count;
     public int CookingPlanCount => cookingPlan.Count;
     public int PendingInstructionCount => instructionQueue.Count;
-    public int RemovedRecipeCount => 0;
+    public int RemovedRecipeCount => removeStack.Count;
 
     public bool AddRecipe(Recipe recipe){
 
@@ -66,12 +66,14 @@ public sealed class RecipeManager : IRecipeManager
             allRecipes.Add(recipe.Id, recipe);
 
             // check
+            /*
             foreach (var item in allRecipes)
             {
                 Console.WriteLine($"ID: {item.Key}");
                 Console.WriteLine($"Title: {item.Value.Title}");
                 Console.WriteLine("--------------------");
             }
+            */
 
             return true;
         }
@@ -88,7 +90,7 @@ public sealed class RecipeManager : IRecipeManager
         {
             if(item.Key == recipeId)
             {
-                Console.WriteLine($"ID: {item.Key}");
+                //Console.WriteLine("ID: " + item.Key);
                 return item.Value;
             }
                 
@@ -107,11 +109,21 @@ public sealed class RecipeManager : IRecipeManager
             return false;
         }
 
+        // if recipe is currently in cooking plan, cannot remove
+        foreach (int id in cookingPlan)
+        {
+            // found means it works
+            if (id == recipeId)
+            {
+                return false;
+            }
+        }
+
         foreach (var item in allRecipes)
         {
             if(item.Key == recipeId)
             {
-                Console.WriteLine($"ID: {item.Key}");
+                //Console.WriteLine("ID RemoveRecipe: “ + item.Key);
                 // remove once found
                 allRecipes.Remove(recipeId);
                 return true;
@@ -216,12 +228,14 @@ public sealed class RecipeManager : IRecipeManager
 
         ArgumentNullException.ThrowIfNull(recipeId);
 
+        /*
         Console.WriteLine("Cooking plan:");
         foreach (int id in cookingPlan)
         {
             Console.WriteLine("id: " + id);
 
         }
+        */
 
         foreach (int id in cookingPlan)
         {
@@ -282,12 +296,14 @@ public sealed class RecipeManager : IRecipeManager
                 }
             }
 
+            /*
             Console.WriteLine("Cooking plan:");
             foreach (int id in cookingPlan)
             {
                 Console.WriteLine("id: " + id);
 
             }
+            */
 
             cookingPlan.AddLast(recipetId);
             return true;
