@@ -8,17 +8,34 @@ namespace RecipeManagement.Core;
 /// Dictionary&lt;int, Recipe&gt;, List&lt;string&gt;, LinkedList&lt;int&gt;,
 /// Stack&lt;int&gt; and Queue&lt;string&gt;.
 /// </summary>
+
+
+
 public sealed class RecipeManager : IRecipeManager
 {
     // TODO Part A: add your private collection fields here.
-
+    private Dictionary<int, Recipe> allRecipes;
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
-        _ = recipes;
-        // testing partA
-        // trying to make the project into github
+        allRecipes = new Dictionary<int, Recipe>();
 
+        // recipes is all the recipes
+        //this.allRecipes = recipes;
+
+        foreach (Recipe c in recipes)
+        {
+            // copy one by one
+            allRecipes.Add(c.Id,c);
+        }
+
+        // check
+        foreach (var item in allRecipes)
+        {
+            Console.WriteLine($"ID: {item.Key}");
+            Console.WriteLine($"Title: {item.Value.Title}");
+            Console.WriteLine("--------------------");
+        }
     }
 
     public int RecipeCount => 0;
