@@ -280,6 +280,13 @@ public sealed class RecipeManager : IRecipeManager
                 }
             }
 
+            Console.WriteLine("Cooking plan:");
+            foreach (int id in cookingPlan)
+            {
+                Console.WriteLine("id: " + id);
+
+            }
+
             cookingPlan.AddLast(recipetId);
             return true;
         }
@@ -301,9 +308,19 @@ public sealed class RecipeManager : IRecipeManager
         }
     }
     
-    public IReadOnlyList<int> GetCookingPlan() =>
-        throw new NotImplementedException("Part A: implement GetCookingPlan.");
+    public IReadOnlyList<int> GetCookingPlan()
+    {
+        // copy from shopping list 
+        List<int> getShopping = new List<int>();
 
+        // use the code from aboved
+        foreach (int cookingID in this.cookingPlan)
+        {
+            getShopping.Add(cookingID);
+        }
+
+        return getShopping;
+    }
     public bool StartCooking(int recipeId) =>
         throw new NotImplementedException("Part A: implement StartCooking.");
 
