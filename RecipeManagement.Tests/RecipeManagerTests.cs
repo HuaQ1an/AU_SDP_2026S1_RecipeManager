@@ -88,6 +88,43 @@ public sealed class RecipeManagerTests
 
     }
 
+    [Fact]
+    public void Empty_InstructionQueue_Returns_Null()
+    {
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // Act
+        string completeResult = manager.CompleteNextInstruction();
+
+        // Assert
+        Assert.Null(completeResult);
+    }
+
+
+
+    [Fact]
+    public void Empty_InstructionQueue_Second_Returns_Null()
+    {
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // Act
+        string peekResult = manager.PeekNextInstruction();
+
+        // Assert
+        Assert.Null(peekResult);
+
+    }
+
 
 
     private static RecipeManager CreateManager()

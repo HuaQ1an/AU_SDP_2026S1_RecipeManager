@@ -84,7 +84,7 @@ public sealed class RecipeManager : IRecipeManager
         }
 
     public Recipe? FindRecipe(int recipeId) {
-        ArgumentNullException.ThrowIfNull(recipeId);
+        //ArgumentNullException.ThrowIfNull(recipeId);
 
         if(recipeId < 0)
         {
@@ -107,7 +107,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool RemoveRecipe(int recipeId){
 
-        ArgumentNullException.ThrowIfNull(recipeId);
+        //ArgumentNullException.ThrowIfNull(recipeId);
 
         if(recipeId < 0)
         {
@@ -199,7 +199,7 @@ public sealed class RecipeManager : IRecipeManager
     }
     public bool AddRecipeToCookingPlan(int recipeId)
     {
-        ArgumentNullException.ThrowIfNull(recipeId);
+        //ArgumentNullException.ThrowIfNull(recipeId);
 
         Recipe receipt = this.FindRecipe(recipeId);
         // when can't find receipt
@@ -231,7 +231,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool RemoveRecipeFromCookingPlan(int recipeId){
 
-        ArgumentNullException.ThrowIfNull(recipeId);
+        //ArgumentNullException.ThrowIfNull(recipeId);
 
         /*
         Console.WriteLine("Cooking plan:");
@@ -348,7 +348,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public bool StartCooking(int recipeId)
     {
-        ArgumentNullException.ThrowIfNull(recipeId);
+        //ArgumentNullException.ThrowIfNull(recipeId);
         Recipe receipt = FindRecipe(recipeId);
 
         // make sure receipt exist
