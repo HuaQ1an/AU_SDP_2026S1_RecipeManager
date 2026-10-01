@@ -251,8 +251,41 @@ public sealed class RecipeManager : IRecipeManager
     }
 
 
-    public bool RestoreLastRemovedRecipe() =>
-        throw new NotImplementedException("Part A: implement RestoreLastRemovedRecipe.");
+    public bool RestoreLastRemovedRecipe()
+    {
+        // Return false when the stack is empty. 
+        if (removeStack.Count == 0)
+        {
+            return false;
+        }
+        else
+        {
+            // pop the value
+            int recipetId = removeStack.Pop();
+
+            // find it first
+            // what if not found the ID, just return false
+            if (FindRecipe(recipetId) == null)
+            {
+                return false;
+            }
+
+            // check it in cooking plan
+            foreach (int id in cookingPlan)
+            {
+                // if found, means exist
+                if (id == recipetId)
+                {
+                    return false;
+                }
+            }
+
+            cookingPlan.AddLast(recipetId);
+            return true;
+        }
+
+    }
+
 
     public int? PeekLastRemovedRecipe()
     {
