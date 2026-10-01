@@ -36,16 +36,18 @@ public sealed class RecipeManager : IRecipeManager
         }
 
         // check
+        /*
         foreach (var item in allRecipes)
         {
             Console.WriteLine($"ID: {item.Key}");
             Console.WriteLine($"Title: {item.Value.Title}");
             Console.WriteLine("--------------------");
         }
+        */
     }
 
-    public int RecipeCount => 0;
-    public int ShoppingItemCount => 0;
+    public int RecipeCount => allRecipes.Count;
+    public int ShoppingItemCount => allShoppingList.Count;
     public int CookingPlanCount => 0;
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
@@ -155,12 +157,23 @@ public sealed class RecipeManager : IRecipeManager
         
     }
         
-    public IReadOnlyList<string> GetShoppingList() =>
-        throw new NotImplementedException("Part A: implement GetShoppingList.");
+    public IReadOnlyList<string> GetShoppingList()
+    {
+        List<string> getShopping = new List<string>();
 
-    public void ClearShoppingList() =>
-        throw new NotImplementedException("Part A: implement ClearShoppingList.");
+        // use the code from aboved
+        foreach (string item in allShoppingList)
+        {
+            getShopping.Add(item);
+        }
 
+        return getShopping;
+    }
+
+    public void ClearShoppingList()
+    {
+        allShoppingList.Clear();
+    }
     public bool AddRecipeToCookingPlan(int recipeId) =>
         throw new NotImplementedException("Part A: implement AddRecipeToCookingPlan.");
 
