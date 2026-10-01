@@ -79,8 +79,25 @@ public sealed class RecipeManager : IRecipeManager
         return null;
     }
 
-    public bool RemoveRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipe.");
+    public bool RemoveRecipe(int recipeId){
+
+        ArgumentNullException.ThrowIfNull(recipeId);
+
+        foreach (var item in allRecipes)
+        {
+            if(item.Key == recipeId)
+            {
+                Console.WriteLine($"ID: {item.Key}");
+                // remove once found
+                allRecipes.Remove(recipeId);
+                return true;
+            }
+                
+
+        }
+        // can't find
+        return false;
+    }
 
     public int AddIngredientsToShoppingList(int recipeId) =>
         throw new NotImplementedException("Part A: implement AddIngredientsToShoppingList.");
