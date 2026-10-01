@@ -16,7 +16,7 @@ public sealed class RecipeManager : IRecipeManager
     // TODO Part A: add your private collection fields here.
     private Dictionary<int, Recipe> allRecipes;
     private List<string> allShoppingList ;
-
+    private LinkedList<int> cookingPlan；
 
 
 
@@ -25,6 +25,7 @@ public sealed class RecipeManager : IRecipeManager
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
         allRecipes = new Dictionary<int, Recipe>();
         allShoppingList = new List<string>();
+        cookingPlan = new LinkedList<int>();
 
         // recipes is all the recipes
         //this.allRecipes = recipes;
@@ -48,7 +49,7 @@ public sealed class RecipeManager : IRecipeManager
 
     public int RecipeCount => allRecipes.Count;
     public int ShoppingItemCount => allShoppingList.Count;
-    public int CookingPlanCount => 0;
+    public int CookingPlanCount => cookingPlan.Count;
     public int PendingInstructionCount => 0;
     public int RemovedRecipeCount => 0;
 
@@ -174,8 +175,37 @@ public sealed class RecipeManager : IRecipeManager
     {
         allShoppingList.Clear();
     }
-    public bool AddRecipeToCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement AddRecipeToCookingPlan.");
+    public bool AddRecipeToCookingPlan(int recipeId)
+    {
+        ArgumentNullException.ThrowIfNull(recipeId);
+
+        Recipe receipt = this.FindRecipe(recipeId);
+        // when can't find receipt
+        if(receipt == null)
+        {
+            return false;
+        }
+        // when the number is incorrect
+        if(recipeId < 0)
+        {
+            return false;
+        }
+
+        foreach (int id in cookingPlan)
+        {
+            // see if the same, if already inside, return false
+            if (id == recipeId)
+            {
+                Console.WriteLine("Cooking plan AddRecipe found the same");
+                return false;
+            }
+        }
+
+        cookingPlan.AddLast(recipeId);
+
+        return true;
+    }
+
 
     public bool RemoveRecipeFromCookingPlan(int recipeId) =>
         throw new NotImplementedException("Part A: implement RemoveRecipeFromCookingPlan.");
