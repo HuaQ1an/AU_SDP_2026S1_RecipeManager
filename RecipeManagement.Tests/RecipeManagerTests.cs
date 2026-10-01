@@ -62,6 +62,34 @@ public sealed class RecipeManagerTests
 
     }
 
+
+    [Fact]
+    public void Cooking_Plan_duplicate_test_twice_Returns_False()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+
+        RecipeManager managers = new RecipeManager(recipes);
+
+
+        // create two same cooking
+        bool first = managers.AddRecipeToCookingPlan(10);
+        bool second = managers.AddRecipeToCookingPlan(10);
+
+
+        Assert.True(first);
+        Assert.False(second);
+        Assert.Equal(1, managers.CookingPlanCount);
+
+    }
+
+
+
     private static RecipeManager CreateManager()
     {
         return new RecipeManager(new[]
