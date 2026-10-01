@@ -16,16 +16,19 @@ public sealed class RecipeManager : IRecipeManager
     // TODO Part A: add your private collection fields here.
     private Dictionary<int, Recipe> allRecipes;
     private List<string> allShoppingList ;
-    private LinkedList<int> cookingPlan；
+    private LinkedList<int> cookingPlan;
+    private Stack<int> removeStack;
 
 
 
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
+        
         allRecipes = new Dictionary<int, Recipe>();
         allShoppingList = new List<string>();
         cookingPlan = new LinkedList<int>();
+        removeStack = new Stack<int>();
 
         // recipes is all the recipes
         //this.allRecipes = recipes;
@@ -207,8 +210,46 @@ public sealed class RecipeManager : IRecipeManager
     }
 
 
-    public bool RemoveRecipeFromCookingPlan(int recipeId) =>
-        throw new NotImplementedException("Part A: implement RemoveRecipeFromCookingPlan.");
+    public bool RemoveRecipeFromCookingPlan(int recipeId){
+
+        ArgumentNullException.ThrowIfNull(recipeId);
+
+        Console.WriteLine("Cooking plan:");
+        foreach (int id in cookingPlan)
+        {
+            Console.WriteLine("id: " + id);
+
+        }
+
+        foreach (int id in cookingPlan)
+        {
+            // if the receiptid already in cooking plan
+            if (id == recipeId)
+            {
+                Console.WriteLine("Cooking plan removeRecipt found the same");
+
+                // On success push the ID onto the Stack<int> and return true.
+                removeStack.Push(recipeId);
+                cookingPlan.Remove(recipeId);
+
+
+
+                foreach (int stackId in removeStack)
+                {
+                    Console.WriteLine(stackId);
+                }
+
+                Console.WriteLine("==============================");
+
+
+                return true;
+            }
+        }
+
+
+        return false;
+    }
+
 
     public bool RestoreLastRemovedRecipe() =>
         throw new NotImplementedException("Part A: implement RestoreLastRemovedRecipe.");
