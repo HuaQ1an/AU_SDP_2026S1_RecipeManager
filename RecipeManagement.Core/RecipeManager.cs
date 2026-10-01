@@ -62,6 +62,11 @@ public sealed class RecipeManager : IRecipeManager
 
             ArgumentNullException.ThrowIfNull(recipe);
 
+            // if same id, don't add
+            if (allRecipes.ContainsKey(recipe.Id))
+            {
+                return false;
+            }
             // add to
             allRecipes.Add(recipe.Id, recipe);
 

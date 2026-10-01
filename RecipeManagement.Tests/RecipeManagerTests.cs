@@ -39,6 +39,29 @@ public sealed class RecipeManagerTests
         Assert.Equal(new[] { 20 }, manager.GetCookingPlan());
     }
 
+
+    [Fact]
+    public void AddRecipe_Samething_twice_Returns_False()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipts = new List<Recipe>();
+        // add inside
+        recipts.Add(recipt);
+
+        RecipeManager managers = new RecipeManager(recipts);
+
+        Recipe recipt2 =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        // add same thing
+        bool result = managers.AddRecipe(recipt2);
+
+        Assert.False(result);
+        Assert.Equal(1, managers.RecipeCount);
+
+    }
+
     private static RecipeManager CreateManager()
     {
         return new RecipeManager(new[]
