@@ -195,6 +195,74 @@ public sealed class RecipeManagerTests
     }
 
 
+
+    [Fact]
+    public void AddreceiptToCookingPlan_whenNoReceipt_ReturnFalse()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // 999 should not exist
+        bool addCookingResult = manager.AddRecipeToCookingPlan(999);
+
+        // Assert
+        Assert.False(addCookingResult);
+        Assert.Equal(0, manager.CookingPlanCount);
+
+    }
+
+
+
+    [Fact]
+    public void Test_Empty_Stack_Return()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // 999 should not exist
+        int? peekRes = manager.PeekLastRemovedRecipe();
+
+
+        // Assert
+        Assert.Null(peekRes);
+
+    }
+
+
+
+    [Fact]
+    public void Test_Empty_Stack_Second_Return()
+    {
+
+        Recipe recipt =  new Recipe{ Id = 10, Title = "Recipe A"};
+
+        List<Recipe> recipes = new List<Recipe>();
+        recipes.Add(recipt);
+
+        RecipeManager manager = new RecipeManager(recipes);
+
+        // 999 should not exist
+        bool restoreResult = manager.RestoreLastRemovedRecipe();
+
+
+        // Assert
+        Assert.Equal(0, manager.CookingPlanCount);
+        
+    }
+
+
     private static RecipeManager CreateManager()
     {
         return new RecipeManager(new[]
