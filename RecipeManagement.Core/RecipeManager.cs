@@ -15,10 +15,16 @@ public sealed class RecipeManager : IRecipeManager
 {
     // TODO Part A: add your private collection fields here.
     private Dictionary<int, Recipe> allRecipes;
+    private List<string> allShoppingList ;
+
+
+
+
     public RecipeManager(IEnumerable<Recipe> recipes)
     {
         // TODO Part A: validate recipes and build Dictionary<int, Recipe>.
         allRecipes = new Dictionary<int, Recipe>();
+        allShoppingList = new List<string>();
 
         // recipes is all the recipes
         //this.allRecipes = recipes;
@@ -65,6 +71,11 @@ public sealed class RecipeManager : IRecipeManager
     public Recipe? FindRecipe(int recipeId) {
         ArgumentNullException.ThrowIfNull(recipeId);
 
+        if(recipeId < 0)
+        {
+            return null;
+        }
+
         foreach (var item in allRecipes)
         {
             if(item.Key == recipeId)
@@ -83,6 +94,11 @@ public sealed class RecipeManager : IRecipeManager
 
         ArgumentNullException.ThrowIfNull(recipeId);
 
+        if(recipeId < 0)
+        {
+            return false;
+        }
+
         foreach (var item in allRecipes)
         {
             if(item.Key == recipeId)
@@ -99,9 +115,46 @@ public sealed class RecipeManager : IRecipeManager
         return false;
     }
 
-    public int AddIngredientsToShoppingList(int recipeId) =>
-        throw new NotImplementedException("Part A: implement AddIngredientsToShoppingList.");
+    public int AddIngredientsToShoppingList(int recipeId){
 
+        Recipe recipe = this.FindRecipe(recipeId);
+        // didn't found or other reason
+        if(recipe == null)
+        {
+            return 0;
+        }
+        else
+        {
+            int count = 0;
+
+            foreach (string ing in recipe.Ingredients)
+            {
+                //if(item.Key == recipeId)
+                //{
+                    //Console.WriteLine($"ID: {item.Key}");
+                    // remove once found
+                    //allRecipes.Remove(recipeId);
+
+                //}
+                    
+                // add to shoppinglist
+                allShoppingList.Add(ing);
+                count++;
+            }
+
+            // testing only
+            foreach (string item in allShoppingList)
+            {
+                Console.WriteLine(item);
+            }
+
+            Console.WriteLine("=========================");
+            return count;
+        }
+
+        
+    }
+        
     public IReadOnlyList<string> GetShoppingList() =>
         throw new NotImplementedException("Part A: implement GetShoppingList.");
 
