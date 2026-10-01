@@ -58,12 +58,26 @@ public sealed class RecipeManager : IRecipeManager
                 Console.WriteLine($"Title: {item.Value.Title}");
                 Console.WriteLine("--------------------");
             }
-            
+
             return true;
         }
 
-    public Recipe? FindRecipe(int recipeId) =>
-        throw new NotImplementedException("Part A: implement FindRecipe.");
+    public Recipe? FindRecipe(int recipeId) {
+        ArgumentNullException.ThrowIfNull(recipeId);
+
+        foreach (var item in allRecipes)
+        {
+            if(item.Key == recipeId)
+            {
+                Console.WriteLine($"ID: {item.Key}");
+                return item.Value;
+            }
+                
+
+        }
+
+        return null;
+    }
 
     public bool RemoveRecipe(int recipeId) =>
         throw new NotImplementedException("Part A: implement RemoveRecipe.");
