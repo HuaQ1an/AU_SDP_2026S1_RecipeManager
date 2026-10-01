@@ -247,7 +247,7 @@ public sealed class RecipeManager : IRecipeManager
             // if the receiptid already in cooking plan
             if (id == recipeId)
             {
-                Console.WriteLine("Cooking plan removeRecipt found the same");
+                //Console.WriteLine("Cooking plan removeRecipt found the same");
 
                 // On success push the ID onto the Stack<int> and return true.
                 removeStack.Push(recipeId);
